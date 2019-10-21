@@ -59,8 +59,8 @@ cd ~/dimension/build/programs/cleos   # 打开另外一个终端，进入cleos�
 然后发起提案申请成为出块节点：
 
 ```shell
-./cleos -u http://47.103.88.11:8001 system newproposal 'yourbpname' 'yourbpname' 'your_producer_pub_key' 1
-# yourbpname为你的BP账户名，your_producer_pub_key为上一条命令创建的公钥
+./cleos -u http://47.103.88.11:8001 system newproposal 'yourbpname' 'yourbpname' 'block_height' 1 'status'
+# yourbpname为你的BP账户名，'block_height' 'status' 任意uint数据，如0
 ```
 
 发起提案成功后，联系微信(sdumaoziqi)对提案进行投票，票数达到一定后才可以执行提案。
