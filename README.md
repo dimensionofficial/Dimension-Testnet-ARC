@@ -1,6 +1,7 @@
 # 如何加入GOC测试网
 
 出块节点服务器最低配置：2核8G内存，公网ip+3m以上带宽，300G以上SSD
+
 测试网Chain ID：1c6ae7719a2a3b4ecb19584a30ff510ba1b6ded86e1fd8b8fc22f1179c622a32
 
 ## 一、获取代码
