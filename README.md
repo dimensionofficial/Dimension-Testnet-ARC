@@ -63,6 +63,8 @@ cd ~/dimension/build/programs/cleos   # 打开另外一个终端，进入cleos�
 # yourbpname为你的BP账户名，your_producer_pub_key为上一条命令创建的公钥
 ```
 
+发起提案成功后，联系微信(sdumaoziqi)对提案进行投票，票数达到一定后才可以执行提案。
+
 注：若钱包15分钟未使用，会提示钱包被锁，需要用以下命令解锁钱包：
 ```shell
 ./cleos wallet unlock   # 根据提示输入钱包密码即可
