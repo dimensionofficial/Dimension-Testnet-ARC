@@ -3,6 +3,7 @@
 ## 环境准备
 
 - 本地nodeos已启动且连接到测试网
+- 已执行sudo ./eosio_install.sh或dimension代码安装在根目录
 
 ## 运行说明
 
@@ -12,16 +13,15 @@ cd dimension-testnet/test
 ./logic.sh
 ```
 
-运行后会提示输入本地programs路径以及本地已连接测试网的nodeos的http-server-address端口，例如可分别输入
+运行后会提示输入本地已连接测试网的nodeos的http-server-address端口，例如可输入
 
 ```shell
-../../dimension/build/programs
 8888
 ```
 
 正确输入即可运行逻辑测试脚本，出现下图即为验证通过
 
-![pass.png](https://github.com/dimensionofficial/dimension-testnet/blob/master/test/pass.png)
+![pass.png](https://github.com/dimensionofficial/dimension-testnet/blob/master/test/image.png)
 
 ## 测试内容
 
