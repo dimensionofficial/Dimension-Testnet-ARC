@@ -12,7 +12,7 @@ git clone https://github.com/dimensionofficial/dimension.git
 cd dimension
 git submodule update --init --recursive
 cd scripts
-git checkout v.testnet
+git checkout v.maintest.1
 sudo ./eosio_build.sh
 sudo ./eosio_install.sh
 ```
