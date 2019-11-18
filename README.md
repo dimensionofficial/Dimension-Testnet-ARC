@@ -47,19 +47,19 @@ git clone git@github.com:xxxxxxxx/dimension-testnet.git
 **账户创建完成后**，首先将BP账户注册为gnode：
 
 ```shell
-~/dimension/build/programs/keosd/keosd   # 启动钱包服务
-cd ~/dimension/build/programs/cleos   # 打开另外一个终端，进入cleos目录
-./cleos wallet create --to-console    # 默认创建名为default的钱包，记录显示的钱包密码
-./cleos wallet import       # 导入BP账户。运行后会提示输入私钥，输入BP账户的私钥
-./cleos wallet create_key    # 创建一对公私钥作为producer key
-./cleos -u http://47.103.88.11:8001 system staketognode 'yourbpname' 'your_producer_pub_key' 
+~/dimension/build/programs/keond/keond   # 启动钱包服务
+cd ~/dimension/build/programs/cleon   # 打开另外一个终端，进入cleon目录
+./cleon wallet create --to-console    # 默认创建名为default的钱包，记录显示的钱包密码
+./cleon wallet import       # 导入BP账户。运行后会提示输入私钥，输入BP账户的私钥
+./cleon wallet create_key    # 创建一对公私钥作为producer key
+./cleon -u http://47.103.88.11:8001 system staketognode 'yourbpname' 'your_producer_pub_key' 
 # yourbpname为你的BP账户名，your_producer_pub_key为上一条命令创建的公钥
 ```
 
 然后发起提案申请成为出块节点：
 
 ```shell
-./cleos -u http://47.103.88.11:8001 system newproposal 'yourbpname' 'yourbpname' 'block_height' 1 'status'
+./cleon -u http://47.103.88.11:8001 system newproposal 'yourbpname' 'yourbpname' 'block_height' 1 'status'
 # yourbpname为你的BP账户名，'block_height' 'status' 任意uint数据，如0
 ```
 
@@ -67,7 +67,7 @@ cd ~/dimension/build/programs/cleos   # 打开另外一个终端，进入cleos�
 
 注：若钱包15分钟未使用，会提示钱包被锁，需要用以下命令解锁钱包：
 ```shell
-./cleos wallet unlock   # 根据提示输入钱包密码即可
+./cleon wallet unlock   # 根据提示输入钱包密码即可
 ```
 
 
@@ -75,7 +75,7 @@ cd ~/dimension/build/programs/cleos   # 打开另外一个终端，进入cleos�
 
 1、genesis.json
 
-在~/dimension/build/programs/nodeos文件夹下创建 *genesis.json* 文件，填入以下内容：
+在~/dimension/build/programs/nodeon文件夹下创建 *genesis.json* 文件，填入以下内容：
 
 ```json
 {
@@ -108,7 +108,7 @@ genesis.json文件定义了初始链状态，所有节点必须从相同的初�
 
 2、config.ini
 
-将[dimension-testnet](https://github.com/dimensionofficial/dimension-testnet)里的config.ini复制到~/dimension/build/programs/nodeos文件夹下，**注意要将自己的p2p-peer-address移除**
+将[dimension-testnet](https://github.com/dimensionofficial/dimension-testnet)里的config.ini复制到~/dimension/build/programs/nodeon文件夹下，**注意要将自己的p2p-peer-address移除**
 
 
 
@@ -117,9 +117,9 @@ genesis.json文件定义了初始链状态，所有节点必须从相同的初�
 准备好一切之后，便可启动出块节点，连接测试网：
 
 ```shell
-cd ~/dimension/build/programs/nodeos
+cd ~/dimension/build/programs/nodeon
 
-./nodeos --genesis-json ./genesis.json --config-dir ~/dimension/build/programs/nodeos --http-server-address 0.0.0.0:8888 --p2p-listen-endpoint 0.0.0.0:9876 --http-validate-host=false --producer-name 'yourbpname' --signature-provider='your_producer_pub_key'=KEY:'your_producer_private_key' --plugin eosio::http_plugin --plugin eosio::chain_api_plugin --plugin eosio::producer_plugin --plugin eosio::history_api_plugin
+./nodeon --genesis-json ./genesis.json --config-dir ~/dimension/build/programs/nodeon --http-server-address 0.0.0.0:8888 --p2p-listen-endpoint 0.0.0.0:9876 --http-validate-host=false --producer-name 'yourbpname' --signature-provider='your_producer_pub_key'=KEY:'your_producer_private_key' --plugin eosio::http_plugin --plugin eosio::chain_api_plugin --plugin eosio::producer_plugin --plugin eosio::history_api_plugin
 # yourbpname填入BP账户名; your_producer_pub_key、your_producer_private_key分别填入创建的producer key的公钥和私钥。
 ```
 
@@ -136,16 +136,16 @@ cd ~/dimension/build/programs/nodeos
 再打开另一个命令行终端窗口，输入以下命令：
 
 ```shell
-cd ~/dimension/build/programs/cleos
-./cleos get table eonio eonio proposals 
+cd ~/dimension/build/programs/cleon
+./cleon get table eonio eonio proposals 
 # 查看提案，获取第三步发起的提案id
-./cleos system execproposal 'yourbpname' 'proposal_id'
+./cleon system execproposal 'yourbpname' 'proposal_id'
 # 执行提案，成为出块节点。其中yourbpname填入BP账户名，proposal_id为上一步获取的提案id
 
-./cleos get schedule 
+./cleon get schedule 
 # 查看当前测试网出块节点
 ```
-当nodeos同步到最新块，且BP账户出现在schedule中时，便可观察自己的节点是否正常出块
+当nodeon同步到最新块，且BP账户出现在schedule中时，便可观察自己的节点是否正常出块
 
 
 
