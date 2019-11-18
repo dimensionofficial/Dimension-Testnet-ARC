@@ -13,8 +13,7 @@ cd dimension
 git submodule update --init --recursive
 cd scripts
 git checkout v.maintest.1
-sudo ./eosio_build.sh
-sudo ./eosio_install.sh
+sudo ./dimension_build.sh
 ```
 
 
@@ -80,7 +79,7 @@ cd ~/dimension/build/programs/cleon   # 打开另外一个终端，进入cleon�
 ```json
 {
   "initial_timestamp": "2018-03-02T12:00:00.000",
-  "initial_key": "EOS8Znrtgwt8TfpmbVpTKvA2oB8Nqey625CLN8bCN3TEbgx86Dsvr",
+  "initial_key": "EON8Znrtgwt8TfpmbVpTKvA2oB8Nqey625CLN8bCN3TEbgx86Dsvr",
   "initial_configuration": {
     "max_block_net_usage": 1048576,
     "target_block_net_usage_pct": 1000,
