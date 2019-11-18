@@ -10,9 +10,8 @@
 cd ~    # 退出当前目录，进入主目录
 git clone https://github.com/dimensionofficial/dimension.git
 cd dimension
-git submodule update --init --recursive
-cd scripts
 git checkout v.maintest.1
+git submodule update --init --recursive
 sudo ./dimension_build.sh
 ```
 
