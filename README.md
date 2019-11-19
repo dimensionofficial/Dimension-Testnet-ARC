@@ -51,7 +51,7 @@ cd ~/dimension/build/programs/cleon   # 打开另外一个终端，进入cleon�
 ./cleon wallet create --to-console    # 默认创建名为default的钱包，记录显示的钱包密码
 ./cleon wallet import       # 导入BP账户。运行后会提示输入私钥，输入BP账户的私钥
 ./cleon wallet create_key    # 创建一对公私钥作为producer key
-./cleon -u http://47.103.88.11:8001 system staketognode 'yourbpname' 'your_producer_pub_key' 
+./cleon -u http://47.103.88.11:8001 system staketognode 'yourbpname' 'yourbpname' 'your_producer_pub_key' 
 # yourbpname为你的BP账户名，your_producer_pub_key为上一条命令创建的公钥
 ```
 
