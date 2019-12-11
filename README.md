@@ -150,8 +150,4 @@ cd ~/dimension/build/programs/cleon
 
 
 
-## 测试网维护人员联系方式
 
-代码层次的技术问题请微信联系毛子旗：sdumaoziqi
-
-节点连接测试网等其它问题请微信联系vc：Chen7ccc
