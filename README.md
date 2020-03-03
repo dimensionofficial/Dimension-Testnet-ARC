@@ -1,13 +1,13 @@
-# 如何加入dimension测试网
+# How to join the dimension testnet
 
-出块节点服务器最低配置：2核8G内存，公网ip+3m以上带宽，300G以上SSD
+Minimum node server configuration: 2 core 8G memory, public network ip + 3m bandwidth, SSD over 300G
 
-测试网Chain ID：1c6ae7719a2a3b4ecb19584a30ff510ba1b6ded86e1fd8b8fc22f1179c622a32
+Testnet Chain ID：1c6ae7719a2a3b4ecb19584a30ff510ba1b6ded86e1fd8b8fc22f1179c622a32
 
-## 一、获取代码
+## Get the code
 
 ```sh
-cd ~    # 退出当前目录，进入主目录
+cd ~    # Exit the current directory and enter the home directory
 git clone https://github.com/dimensionofficial/dimension.git
 cd dimension
 git checkout v.maintest.1
@@ -18,63 +18,64 @@ sudo ./dimension_install.sh
 
 
 
-## 二、获取BP账户
+## Get a BP account
 
-获取BP账户需先准备好相关信息（如服务器IP）并提交至[Github](https://github.com/dimensionofficial/dimension-testnet)上，然后联系测试网维护人员创建BP账户，具体步骤如下：
+To obtain a BP account, you must first prepare relevant information (such as the server IP) and submit it to [Github](https://github.com/dimensionofficial/dimension-testnet), and then contact the testnet maintainer to create a BP account:
 
-1、Fork本[repository](https://github.com/dimensionofficial/dimension-testnet)
+1. Fork this [repository](https://github.com/dimensionofficial/dimension-testnet)
 
-2、Clone Fork的repository（不是本repo）到本地
+2. Clone Fork's repository (not this repo) to local
 
 ```sh
 git clone git@github.com:xxxxxxxx/dimension-testnet.git 
-# xxxxxxxx替换为你自己的GitHub帐号
+# Replace xxxxxxxx with your own GitHub account
 ```
 
-3、以[fudanlab.ini](https://github.com/dimensionofficial/dimension-testnet/blob/master/producer-info/fudanlab.ini)为例，新建bp-name.ini到producer-info文件夹中，bp-name为你的BP名称，ini文件中producer-name为链上bp账户名（12位字符，可选字符范围：1-5，a-z）
+3. Take [fudanlab.ini](https://github.com/dimensionofficial/dimension-testnet/blob/master/producer-info/fudanlab.ini) as an example, create a new bp-name.ini into the producer-info folder, bp-name is your BP name, and producer-name in the ini file is the bp account name on the chain (12 characters, optional character range: 1-5, a-z)
 
-4、将BP名称和p2p-peer-address添加到config.ini文件末尾（以已有信息为例）
+4. Add the BP name and p2p-peer-address to the end of the config.ini file (take the existing information as an example)
 
-5、创建一个pull request将你的BP信息提交至[dimension-testnet](https://github.com/dimensionofficial/dimension-testnet)上
+5. Create a pull request to submit your BP information to [dimension-testnet](https://github.com/dimensionofficial/dimension-testnet)
 
-6、联系测试网维护人员创建BP账户以及转币
+6. Contact the testnet maintenance staff to create a BP account and transfer coins
 
 
 
-## 三、注册gnode及申请成为出块BP
+## Register gnode and apply to become a block BP
 
-**账户创建完成后**，首先将BP账户注册为gnode：
+**After the account creation completed**, register the BP account as a gnode firstly：
 
 ```shell
-~/dimension/build/programs/keond/keond   # 启动钱包服务
-cd ~/dimension/build/programs/cleon   # 打开另外一个终端，进入cleon目录
-./cleon wallet create --to-console    # 默认创建名为default的钱包，记录显示的钱包密码
-./cleon wallet import       # 导入BP账户。运行后会提示输入私钥，输入BP账户的私钥
-./cleon wallet create_key    # 创建一对公私钥作为producer key
+~/dimension/build/programs/keond/keond   # Start wallet service
+cd ~/dimension/build/programs/cleon   # Open another terminal and go to the cleon directory
+./cleon wallet create --to-console    # Create a wallet named default by default, record the wallet password displayed
+./cleon wallet import       # After running, you will be prompted to enter the private key. Enter the private key of the BP account.
+./cleon wallet create_key    # Create a pair of public and private keys as producer keys
 ./cleon -u http://47.103.88.11:8001 system staketognode 'yourbpname' 'yourbpname' 'your_producer_pub_key' 
-# yourbpname为你的BP账户名，your_producer_pub_key为上一条命令创建的公钥
+# yourbpname is your BP account name, your_producer_pub_key is the public key created by the previous command
 ```
 
-然后发起提案申请成为出块节点：
+Then initiate a proposal application to become a block node:
 
 ```shell
 ./cleon -u http://47.103.88.11:8001 system newproposal 'yourbpname' 'yourbpname' 'block_height' 1 'consensus_type'
-# yourbpname为你的BP账户名，'block_height' 'consensus_type' 任意uint数据，如0
+# yourbpname is your BP account name, 'block_height' 'consensus_type' is arbitrary uint data, such as 0
 ```
 
-发起提案成功后，联系微信(sdumaoziqi)对提案进行投票，票数达到一定后才可以执行提案。
+After successfully launching the proposal, contact the WeChat user (sdumaoziqi) to vote on the proposal, and the proposal can be executed after the number of votes reaches a certain number.
 
-注：若钱包15分钟未使用，会提示钱包被锁，需要用以下命令解锁钱包：
+Note: If the wallet is not used for 15 minutes, it will prompt the wallet to be locked. You need to unlock the wallet with the following command:
 ```shell
-./cleon wallet unlock   # 根据提示输入钱包密码即可
+./cleon wallet unlock   # Enter the wallet password as prompted
 ```
 
 
-## 四、准备配置文件
+## Prepare the configuration file
 
-1、genesis.json
+1. genesis.json
 
-在~/dimension/build/programs/nodeon文件夹下创建 *genesis.json* 文件，填入以下内容：
+
+Create a *genesis.json* file in the ~/dimension/build/programs/nodeon folder and fill in the following: 
 
 ```json
 {
@@ -103,26 +104,26 @@ cd ~/dimension/build/programs/cleon   # 打开另外一个终端，进入cleon�
 }
 ```
 
-genesis.json文件定义了初始链状态，所有节点必须从相同的初始状态开始
+The genesis.json file defines the initial chain state. All nodes must start from the same initial state.
 
-2、config.ini
+2. config.ini
 
-将[dimension-testnet](https://github.com/dimensionofficial/dimension-testnet)里的config.ini复制到~/dimension/build/programs/nodeon文件夹下，**注意要将自己的p2p-peer-address移除**
+Copy the config.ini in [dimension-testnet](https://github.com/dimensionofficial/dimension-testnet) to the ~/dimension/build/programs/nodeon folder, **Note that you must remove your p2p-peer-address**
 
 
 
-## 五、启动出块节点
+## Start block node
 
-准备好一切之后，便可启动出块节点，连接测试网：
+After everything is ready, you can start the block node and connect to the testnet:
 
 ```shell
 cd ~/dimension/build/programs/nodeon
 
 ./nodeon --genesis-json ./genesis.json --config-dir ~/dimension/build/programs/nodeon --http-server-address 0.0.0.0:8888 --p2p-listen-endpoint 0.0.0.0:9876 --http-validate-host=false --producer-name 'yourbpname' --signature-provider='your_producer_pub_key'=KEY:'your_producer_private_key' --plugin eosio::http_plugin --plugin eosio::chain_api_plugin --plugin eosio::producer_plugin --plugin eosio::history_api_plugin
-# yourbpname填入BP账户名; your_producer_pub_key、your_producer_private_key分别填入创建的producer key的公钥和私钥。
+# Fill yourbpname into the BP account name; fill your_producer_pub_key and your_producer_private_key into the public key and private key of the producer key you created respectively.
 ```
 
-连接测试网，会先同步测试网中已生产的块，等待一段时间同步完成后，每0.5s会收到出块节点产出的块，终端显示如下示例信息：
+After connecting to the testnet, the blocks produced in the testnet will be synchronized first. After waiting for a period of time to complete the synchronization, the blocks produced by the block node will be received every 0.5s. The following example information will be displayed in the terminal:
 ```
 2018-09-29T10:47:23.478 thread-0   producer_plugin.cpp:332       on_incoming_block    ] Received block 9838cc2c992c2725... #406196 @ 2018-09-29T10:47:23.500 signed by producer111h [trxs: 0, lib: 406028, conf: 0, latency: -21 ms]
 2018-09-29T10:47:24.072 thread-0   producer_plugin.cpp:332       on_incoming_block    ] Received block 3624e2ab8697a1e1... #406197 @ 2018-09-29T10:47:24.000 signed by producer111i [trxs: 0, lib: 406040, conf: 120, latency: 72 ms]
@@ -130,21 +131,21 @@ cd ~/dimension/build/programs/nodeon
 
 
 
-## 六、执行提案
+## Implementation proposal
 
-再打开另一个命令行终端窗口，输入以下命令：
+Open another command-line terminal and enter the following command:
 
 ```shell
 cd ~/dimension/build/programs/cleon
 ./cleon get table eonio eonio proposals 
-# 查看提案，获取第三步发起的提案id
+# View the proposal and get the proposal id initiated in the third step
 ./cleon system execproposal 'yourbpname' 'proposal_id'
-# 执行提案，成为出块节点。其中yourbpname填入BP账户名，proposal_id为上一步获取的提案id
+# Where yourbpname is filled in the BP account name, proposal_id is the proposal id obtained in the previous step
 
 ./cleon get schedule 
-# 查看当前测试网出块节点
+# View the current testnet block node
 ```
-当nodeon同步到最新块，且BP账户出现在schedule中时，便可观察自己的节点是否正常出块
+When nodeon is synchronized to the latest block, and the BP account appears in the schedule, you can observe whether your node is producing blocks
 
 
 
